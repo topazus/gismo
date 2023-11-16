@@ -188,7 +188,7 @@ function(get_repo_info repository revision) #REPO_REVISION
       CACHE INTERNAL "G+Smo modules" )
 
     install(DIRECTORY "${_DIR}/${_NAME}"
-      DESTINATION include/gismo
+      DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/gismo
       FILES_MATCHING PATTERN "*.h")
 
   endmacro(add_gismo_module)

@@ -56,7 +56,7 @@ foreach(file ${FILES})
   set_target_properties(${tarname} PROPERTIES FOLDER "${PROJECT_NAME}")
 
   # install the example executables (optionally)
-  install(TARGETS ${tarname} DESTINATION bin COMPONENT exe OPTIONAL)
+  install(TARGETS ${tarname} DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT exe OPTIONAL)
 
 endforeach(file ${FILES})
 

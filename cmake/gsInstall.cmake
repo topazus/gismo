@@ -62,10 +62,10 @@ configure_file(${PROJECT_SOURCE_DIR}/cmake/gismoConfig.cmake.in
 file(COPY ${PROJECT_SOURCE_DIR}/cmake/gismoUse.cmake DESTINATION ${CMAKE_BINARY_DIR})
 
 # ... for the install tree
-set(CONF_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/${INCLUDE_INSTALL_DIR}/${PROJECT_NAME}")
-set(CONF_LIB_DIRS     "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}")
-set(CONF_MODULE_PATH  "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DIR}")
-set(CONF_USE_FILE     "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DIR}/gismoUse.cmake")
+set(CONF_INCLUDE_DIRS "${INCLUDE_INSTALL_DIR}/${PROJECT_NAME}")
+set(CONF_LIB_DIRS     "${LIB_INSTALL_DIR}")
+set(CONF_MODULE_PATH  "${CMAKE_INSTALL_DIR}")
+set(CONF_USE_FILE     "${CMAKE_INSTALL_DIR}/gismoUse.cmake")
 configure_file(${PROJECT_SOURCE_DIR}/cmake/gismoConfig.cmake.in
                "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/gismoConfig.cmake" @ONLY)
 
@@ -80,29 +80,29 @@ set_target_properties(gismo PROPERTIES
 
 # For gsExport.h
 install(FILES ${PROJECT_BINARY_DIR}/gsCore/gsExport.h
-        DESTINATION include/${PROJECT_NAME}/gsCore )
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/gsCore )
 
 # For gsLinearAlgebra.h
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/external/gsEigen
-        DESTINATION include/${PROJECT_NAME}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
         PATTERN "*.txt" EXCLUDE
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
 # For gsCmdLine.h
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/external/tclap
-        DESTINATION include/${PROJECT_NAME}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
         FILES_MATCHING
         PATTERN "*.h"
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
 # For eiquadprog.hpp
 install(FILES ${PROJECT_SOURCE_DIR}/external/eiquadprog.hpp
-        DESTINATION include/${PROJECT_NAME})
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
 
 # For gsXmlUtils.h
 install(FILES ${PROJECT_SOURCE_DIR}/external/rapidxml/rapidxml.hpp
               ${PROJECT_SOURCE_DIR}/external/rapidxml/rapidxml_print.hpp
-        DESTINATION include/${PROJECT_NAME}/rapidxml/ )
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/rapidxml/ )
 
 
 # For pure install
@@ -114,15 +114,15 @@ install(FILES ${PROJECT_SOURCE_DIR}/external/rapidxml/rapidxml.hpp
 #        PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
 
 # For gsConfig.h
-install(DIRECTORY ${GISMO_DATA_DIR} DESTINATION share/gismodata)
+install(DIRECTORY ${GISMO_DATA_DIR} DESTINATION ${CMAKE_INSTALL_DATADIR}/gismodata)
 # todo: search environment variable as well
-set(GISMO_DATA_DIR ${CMAKE_INSTALL_PREFIX}/share/gismodata/)
+set(GISMO_DATA_DIR ${CMAKE_INSTALL_DATADIR}/gismodata/)
 configure_file ("${PROJECT_SOURCE_DIR}/src/gsCore/gsConfig.h.in"
                 "${PROJECT_BINARY_DIR}/gsCore/gsConfig_install.h" )
 install(FILES ${PROJECT_BINARY_DIR}/gsCore/gsConfig_install.h
-  DESTINATION include/${PROJECT_NAME}/gsCore/ RENAME gsConfig.h)
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/gsCore/ RENAME gsConfig.h)
 install(FILES ${PROJECT_BINARY_DIR}/gsCore/gsConfigExt.h
-  DESTINATION include/${PROJECT_NAME}/gsCore/)
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}/gsCore/)
 
 # Install cmake files
 install(FILES
